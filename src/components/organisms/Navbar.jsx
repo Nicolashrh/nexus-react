@@ -1,45 +1,43 @@
-import { Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import Image from "../atoms/Image.jsx";
-import Button from "../atoms/Button.jsx";
-import CardBody from "../molecules/CardBody.jsx";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function ProductCard({ product }) {
-  const navigate = useNavigate();
-
+function NavBar() {
   return (
-    <Card
-      style={{ width: "18rem" }}
-      className="m-2 shadow-sm border-0 h-100 bg-dark text-white"
+    <Navbar
+      bg="dark"
+      variant="dark"
+      expand="lg"
+      className="border-bottom border-secondary py-3"
     >
-      <Image
-        src={product.image}
-        alt={product.name}
-        className="card-img-top"
-        style={{ height: "180px", objectFit: "cover" }}
-        onError={(e) => {
-          e.target.src =
-            "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600";
-        }}
-      />
-      <Card.Body className="d-flex flex-column justify-content-between">
-        <div>
-          <CardBody
-            title={product.name}
-            description={product.description}
-            price={product.price}
-          />
-        </div>
-        <Button
-          variant="primary"
-          className="mt-3 w-100"
-          onClick={() => navigate(`/products/${product.id}`)}
+      <Container>
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          className="fw-bold text-uppercase fs-4 text-primary"
         >
-          Ver detalles
-        </Button>
-      </Card.Body>
-    </Card>
+          Nexus
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="nexus-nav" />
+        <Navbar.Collapse id="nexus-nav">
+          <Nav className="ms-auto d-flex flex-row gap-4 align-items-center mt-3 mt-lg-0">
+            <Nav.Link as={Link} to="/">
+              Inicio
+            </Nav.Link>
+            <Nav.Link as={Link} to="/products">
+              Catálogo
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/admin"
+              className="btn btn-outline-primary btn-sm text-light px-3"
+            >
+              Administrador
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default ProductCard;
+export default NavBar;
