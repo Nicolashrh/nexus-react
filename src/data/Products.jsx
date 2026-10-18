@@ -1,101 +1,109 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import initialProducts from "../data/Products.jsx";
+const products = [
+  {
+    id: 1,
+    name: "RE4 REMAKE",
+    description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
+    price: 25000,
+    image: "/images/RE4.webp",
+  },
+  {
+    id: 2,
+    name: "ASSASSINS CREED SHADOWS",
+    description: "Actualmente lo tenemos disponible para PC",
+    price: 25000,
+    image: "/images/ASSCRES.webp",
+  },
+  {
+    id: 3,
+    name: "MORTAL KOMBAT X",
+    description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
+    price: 25000,
+    image: "/images/images.webp",
+  },
+  {
+    id: 4,
+    name: "FIFA 27",
+    description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
+    price: 25000,
+    image: "/images/FIFA 27.webp",
+  },
+  {
+    id: 5,
+    name: "SILENT HILL 2",
+    description: "Actualmente lo tenemos disponible para PC/PS",
+    price: 25000,
+    image: "/images/Silent hill.webp",
+  },
+  {
+    id: 6,
+    name: "PEAK",
+    description: "Actualmente lo tenemos disponible para PC/PS/SWITCH",
+    price: 25000,
+    image: "/images/peak-5972991.webp",
+  },
+  {
+    id: 7,
+    name: "PRAGMATA",
+    description: "Actualmente lo tenemos disponible para PC/PS",
+    price: 25000,
+    image: "/images/Pragmata.webp",
+  },
+  {
+    id: 8,
+    name: "GTA IV",
+    description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
+    price: 25000,
+    image: "/images/GTA 4.webp",
+  },
+  {
+    id: 9,
+    name: "THE LAST OF US",
+    description: "Actualmente lo tenemos disponible para PC",
+    price: 25000,
+    image: "/images/TLOU-WEB.webp",
+  },
+  {
+    id: 10,
+    name: "BLOODBORNE",
+    description: "Actualmente lo tenemos disponible para PS",
+    price: 25000,
+    image: "/images/BLOOD-WEB.webp",
+  },
+  {
+    id: 11,
+    name: "DETROIT",
+    description: "Actualmente lo tenemos disponible para PC/PS",
+    price: 25000,
+    image: "/images/DETROIT-WEB.webp",
+  },
+  {
+    id: 12,
+    name: "HOLLOW KNIGHT SILKSONG",
+    description: "Actualmente lo tenemos disponible para PC/PS/SWITCH",
+    price: 25000,
+    image: "/images/SILK-WEB.webp",
+  },
+  {
+    id: 13,
+    name: "BATMAN: ARKHAM KNIGHT",
+    description: "Actualmente lo tenemos disponible para PC",
+    price: 25000,
+    image: "/images/bats-WEB.webp",
+  },
+  {
+    id: 14,
+    name: "ELDEN RING",
+    description: "Actualmente lo tenemos disponible para PC/PS",
+    price: 25000,
+    image: "/images/ELDEN-WEB.webp",
+  },
+  {
+    id: 15,
+    name: "MARVEL SPIDER-MAN",
+    description: "Actualmente lo tenemos disponible para PC/PS",
+    price: 25000,
+    image: "/images/spider.webp",
+  },
+];
 
-function Products() {
-  const [games, setGames] = useState([]);
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("nexus_games");
-      if (saved) {
-        setGames(JSON.parse(saved));
-      } else {
-        const defaultList = Array.isArray(initialProducts)
-          ? initialProducts
-          : [];
-        setGames(defaultList);
-        localStorage.setItem("nexus_games", JSON.stringify(defaultList));
-      }
-    } catch {
-      setGames(Array.isArray(initialProducts) ? initialProducts : []);
-    }
-  }, []);
-
-  const filteredGames = games.filter((game) =>
-    game.name?.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  return (
-    <Container className="my-5">
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
-        <h1 className="fw-bold m-0 text-primary">Catálogo de Juegos</h1>
-        <input
-          type="text"
-          className="form-control"
-          style={{ maxWidth: "300px" }}
-          placeholder="Buscar videojuego..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-
-      {filteredGames.length === 0 ? (
-        <div className="alert alert-warning text-center">
-          No hay videojuegos disponibles en el catálogo.
-        </div>
-      ) : (
-        <Row className="g-4">
-          {filteredGames.map((game) => (
-            <Col
-              key={game.id}
-              xs={12}
-              sm={6}
-              md={4}
-              className="d-flex justify-content-center"
-            >
-              <Card
-                style={{ width: "18rem" }}
-                className="shadow-sm border-0 h-100 bg-dark text-white"
-              >
-                <Card.Img
-                  variant="top"
-                  src={game.image}
-                  alt={game.name}
-                  style={{ height: "180px", objectFit: "cover" }}
-                  onError={(e) => {
-                    e.target.src =
-                      "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600";
-                  }}
-                />
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <Card.Title className="fw-bold">{game.name}</Card.Title>
-                    <Card.Text className="text-secondary small">
-                      {game.description}
-                    </Card.Text>
-                    <h5 className="fw-bold text-success">
-                      ${Number(game.price || 0).toLocaleString("es-CL")} CLP
-                    </h5>
-                  </div>
-                  <Button
-                    variant="primary"
-                    className="mt-3 w-100"
-                    onClick={() => navigate(`/products/${game.id}`)}
-                  >
-                    Ver detalles
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      )}
-    </Container>
-  );
-}
-
-export default Products;
+export default products;
