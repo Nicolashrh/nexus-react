@@ -78,13 +78,13 @@ const products = [
       "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600",
   },
 
-  // ==================== CATEGORÍA 3: TERROR / SUPERVIVENCIA (4 juegos) ====================
+  // ==================== CATEGORÍA 3: Horror / SUPERVIVENCIA (4 juegos) ====================
   {
     id: 9,
     name: "SILENT HILL 2",
     description: "Actualmente lo tenemos disponible para PC/PS",
     price: 25000,
-    category: "Terror",
+    category: "survival Horror",
     image: "/images/Silent hill.webp",
     fallback:
       "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600",
@@ -94,7 +94,7 @@ const products = [
     name: "THE LAST OF US",
     description: "Actualmente lo tenemos disponible para PC",
     price: 25000,
-    category: "Terror",
+    category: "survival Horror",
     image: "/images/TLOU-WEB.webp",
     fallback:
       "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?w=600",
@@ -104,7 +104,7 @@ const products = [
     name: "DETROIT: BECOME HUMAN",
     description: "Actualmente lo tenemos disponible para PC/PS",
     price: 25000,
-    category: "Terror",
+    category: "Horror",
     image: "/images/DETROIT-WEB.webp",
     fallback:
       "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600",
@@ -114,7 +114,7 @@ const products = [
     name: "MORTAL KOMBAT X",
     description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
     price: 25000,
-    category: "Terror",
+    category: "Horror",
     image: "/images/images.webp",
     fallback:
       "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600",
@@ -145,18 +145,29 @@ const products = [
     name: "PEAK",
     description: "Actualmente lo tenemos disponible para PC/PS/SWITCH",
     price: 25000,
-    category: "Deportes",
+    category: "AVENTURA",
     image: "/images/peak-5972991.webp",
     fallback: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600",
   },
   {
-    id: 16,
-    name: "VALORANT POINTS PACK",
-    description: "Actualmente lo tenemos disponible para PC",
+    id: 17,
+    name: "SHENMUE",
+    description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
     price: 25000,
-    category: "Deportes",
-    image: "/images/485fd336a1eb9e94a72ed950af6c1793.webp",
-    fallback: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600",
+    category: "Mundo abierto",
+    image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600",
+    localImage:
+      "https://cdn.cloudflare.steamstatic.com/steam/apps/758330/library_600x900.jpg",
+  },
+  {
+    id: 18,
+    name: "SHENMUE II",
+    description: "Actualmente lo tenemos disponible para PC/PS/XBOX",
+    price: 25000,
+    category: "Mundo abierto",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600",
+    localImage:
+      "https://images.igdb.com/igdb/image/upload/t_cover_big/co294h.webp",
   },
 ];
 

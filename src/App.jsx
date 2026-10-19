@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import NavBar from "./components/organisms/Navbar.jsx";
 import CartModal from "./components/organisms/CartModal.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
-import Admin from "./pages/Admin.jsx";
+import Categorias from "./pages/Categorias.jsx";
 import Nosotros from "./pages/Nosotros.jsx";
+import Contacto from "./pages/Contacto.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import Categorias from "./pages/Categorias.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import PagoExito from "./pages/PagoExito.jsx";
 import PagoError from "./pages/PagoError.jsx";
+import Admin from "./pages/Admin.jsx";
 
 function App() {
   const navigate = useNavigate();
+
+  // Estado del carrito sincronizado con localStorage
   const [cart, setCart] = useState(() => {
     try {
       const saved = localStorage.getItem("nexus_cart");
@@ -33,7 +35,7 @@ function App() {
 
   const handleAddToCart = (product) => {
     setCart((prev) => [...prev, product]);
-    setShowCart(true);
+    setShowCart(true); // Despliega el modal automáticamente al agregar
   };
 
   const handleRemoveFromCart = (indexToRemove) => {
@@ -51,8 +53,10 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-dark text-light">
+      {/* Barra de navegación superior */}
       <NavBar cartCount={cart.length} onOpenCart={() => setShowCart(true)} />
 
+      {/* Contenido principal enrutado */}
       <main className="flex-grow-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -68,6 +72,10 @@ function App() {
             path="/categorias"
             element={<Categorias onAddToCart={handleAddToCart} />}
           />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/checkout"
             element={
@@ -76,13 +84,11 @@ function App() {
           />
           <Route path="/pago-exito" element={<PagoExito />} />
           <Route path="/pago-error" element={<PagoError />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
 
+      {/* Modal interactivo de carrito */}
       <CartModal
         show={showCart}
         handleClose={() => setShowCart(false)}
@@ -92,6 +98,7 @@ function App() {
         onCheckout={handleGoToCheckout}
       />
 
+      {/* Pie de página */}
       <footer className="py-4 bg-dark text-white text-center mt-auto border-top border-secondary">
         <p className="mb-0 text-secondary">
           © 2026 Nexus Store - Proyecto React (DSY1104)

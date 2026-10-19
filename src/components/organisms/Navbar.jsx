@@ -10,6 +10,7 @@ function NavBar({ cartCount = 0, onOpenCart }) {
       className="border-bottom border-secondary py-3 sticky-top shadow-sm"
     >
       <Container>
+        {/* Brand / Logo */}
         <Navbar.Brand
           as={Link}
           to="/"
@@ -21,6 +22,7 @@ function NavBar({ cartCount = 0, onOpenCart }) {
         <Navbar.Toggle aria-controls="nexus-nav" />
 
         <Navbar.Collapse id="nexus-nav">
+          {/* Enlaces principales */}
           <Nav className="me-auto d-flex gap-2 gap-lg-3 align-items-lg-center mt-3 mt-lg-0">
             <Nav.Link as={Link} to="/">
               Inicio
@@ -34,8 +36,12 @@ function NavBar({ cartCount = 0, onOpenCart }) {
             <Nav.Link as={Link} to="/nosotros">
               Nosotros
             </Nav.Link>
+            <Nav.Link as={Link} to="/contacto">
+              Contacto
+            </Nav.Link>
           </Nav>
 
+          {/* Acciones, Carrito y Autenticación */}
           <Nav className="d-flex flex-row flex-wrap gap-2 align-items-center mt-3 mt-lg-0">
             <Button
               variant="outline-info"
