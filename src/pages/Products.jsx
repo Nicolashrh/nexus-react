@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import initialProducts from "../data/Products.jsx";
 
-function Products() {
+function Products({ onAddToCart }) {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -53,7 +53,7 @@ function Products() {
   return (
     <Container className="my-5">
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 gap-3 border-bottom pb-3">
-        <h1 className="fw-bold m-0 text-dark">Catalogo completo disponible</h1>
+        <h1 className="fw-bold m-0 text-white">Catalogo completo disponible</h1>
         <input
           type="text"
           className="form-control"
@@ -104,13 +104,22 @@ function Products() {
                     ${Number(game.price || 0).toLocaleString("es-CL")}
                   </h5>
                 </div>
-                <Button
-                  variant="dark"
-                  className="w-100 rounded-0 py-2"
-                  onClick={() => navigate(`/products/${game.id}`)}
-                >
-                  Ver Detalles
-                </Button>
+                <div className="d-flex gap-2">
+                  <Button
+                    variant="outline-dark"
+                    className="w-50 rounded-0 py-2"
+                    onClick={() => navigate(`/products/${game.id}`)}
+                  >
+                    Detalles
+                  </Button>
+                  <Button
+                    variant="dark"
+                    className="w-50 rounded-0 py-2"
+                    onClick={() => onAddToCart && onAddToCart(game)}
+                  >
+                    + Carrito
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           </Col>
