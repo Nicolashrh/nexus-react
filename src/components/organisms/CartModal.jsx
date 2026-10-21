@@ -1,3 +1,4 @@
+import React from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 
 function CartModal({
@@ -21,12 +22,12 @@ function CartModal({
       contentClassName="bg-dark text-white border-secondary"
     >
       <Modal.Header closeButton closeVariant="white">
-        <Modal.Title className="fw-bold">🛒 Carrito de Compras</Modal.Title>
+        <Modal.Title className="fw-bold">🛒 Tu Carrito de Compras</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {cartItems.length === 0 ? (
           <p className="text-center text-secondary my-4">
-            El carrito de compras está vacío.
+            El carrito de compras está actualmente vacío.
           </p>
         ) : (
           <>
@@ -48,7 +49,7 @@ function CartModal({
               <tbody>
                 {cartItems.map((item, index) => (
                   <tr key={`${item.id}-${index}`}>
-                    <td>{item.name}</td>
+                    <td className="fw-semibold">{item.name}</td>
                     <td className="text-success">
                       ${Number(item.price).toLocaleString("es-CL")}
                     </td>
@@ -77,7 +78,7 @@ function CartModal({
       <Modal.Footer className="border-secondary">
         {cartItems.length > 0 && (
           <Button variant="outline-danger" onClick={onClearCart}>
-            Vaciar
+            Vaciar Carrito
           </Button>
         )}
         <Button variant="secondary" onClick={handleClose}>

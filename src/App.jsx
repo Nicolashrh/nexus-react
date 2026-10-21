@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import NavBar from "./components/organisms/Navbar.jsx";
+import CartModal from "./components/organisms/CartModal.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
@@ -9,9 +10,15 @@ import Nosotros from "./pages/Nosotros.jsx";
 import Contacto from "./pages/Contacto.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import Checkout from "./pages/Checkout.jsx";
+import PagoExito from "./pages/PagoExito.jsx";
+import PagoError from "./pages/PagoError.jsx";
 import Admin from "./pages/Admin.jsx";
 
 function App() {
+  const navigate = useNavigate();
+
+  // Estado del carrito sincronizado con localStorage
   const [cart, setCart] = useState(() => {
     try {
       const saved = localStorage.getItem("nexus_cart");
@@ -21,28 +28,36 @@ function App() {
     }
   });
 
+  const [showCart, setShowCart] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("nexus_cart", JSON.stringify(cart));
   }, [cart]);
 
   const handleAddToCart = (product) => {
     setCart((prev) => [...prev, product]);
-    alert(
-      `¡"${product.name}" añadido al carrito! Total en carrito: ${cart.length + 1}`,
-    );
+    setShowCart(true); // Abre el modal de inmediato para ver el detalle
+  };
+
+  const handleRemoveFromCart = (indexToRemove) => {
+    setCart((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleClearCart = () => {
+    setCart([]);
+  };
+
+  const handleGoToCheckout = () => {
+    setShowCart(false);
+    navigate("/checkout");
   };
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-dark text-light">
-      {/* Barra de navegación superior */}
-      <NavBar
-        cartCount={cart.length}
-        onOpenCart={() =>
-          alert(`Tienes ${cart.length} juego(s) en tu carrito de compras.`)
-        }
-      />
+      {/* Barra de navegación con contador y apertura del modal */}
+      <NavBar cartCount={cart.length} onOpenCart={() => setShowCart(true)} />
 
-      {/* Contenedor principal con todas las rutas */}
+      {/* Contenedor principal de rutas */}
       <main className="flex-grow-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -62,9 +77,27 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/checkout"
+            element={
+              <Checkout cartItems={cart} onClearCart={handleClearCart} />
+            }
+          />
+          <Route path="/pago-exito" element={<PagoExito />} />
+          <Route path="/pago-error" element={<PagoError />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
+
+      {/* Modal con los detalles del carrito */}
+      <CartModal
+        show={showCart}
+        handleClose={() => setShowCart(false)}
+        cartItems={cart}
+        onRemoveItem={handleRemoveFromCart}
+        onClearCart={handleClearCart}
+        onCheckout={handleGoToCheckout}
+      />
 
       {/* Footer */}
       <footer className="py-4 bg-dark text-white text-center mt-auto border-top border-secondary">
